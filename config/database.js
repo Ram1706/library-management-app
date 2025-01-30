@@ -11,7 +11,14 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 const database = new sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     dialect: DB_DIALECT,
     host: DB_HOST_NAME,
-    port: DB_PORT
+    port: DB_PORT,
+    logging: true, // Disable logging for production
+    pool: {
+        max: 10,      // Max connections
+        min: 2,       // Min connections
+        acquire: 30000, // Max time (ms) to acquire a connection
+        idle: 10000   // Max time (ms) a connection can be idle
+    }
 });
 
 module.exports = database;

@@ -24,9 +24,18 @@ const Users = database.define('Users', {
             isEmail: true
         }
     },
+    password: {
+        type: sequelize.STRING,
+        allowNull: false,
+    },
+    photoUrl: {
+        type: sequelize.STRING,
+        allowNull: null,
+        defaultValue: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsS2NXAV6lRKgQ7LNH7LzCeq3WdDC3wRsT6Q&s"
+    },
     age: {
         type: sequelize.INTEGER,
-        allowNull: false
+        allowNull: true
     }
 }, {
     tableName: 'users',

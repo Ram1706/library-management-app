@@ -3,11 +3,13 @@ const PORT = process.env.PORT;
 const express = require("express");
 const userRouter = require("./routes/userRouter");
 const database = require("./config/database");
+const authRouter = require("./routes/authRouter");
 
 const app = express();
 app.use(express.json());
 
 // Adding routers
+app.use("/", authRouter);
 app.use("/", userRouter);
 
 // Test Route added for checking purpose
