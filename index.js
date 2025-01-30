@@ -1,12 +1,14 @@
 require("dotenv").config();
 const PORT = process.env.PORT;
 const express = require("express");
+const cookiePasrser = require("cookie-parser");
 const userRouter = require("./routes/userRouter");
 const database = require("./config/database");
 const authRouter = require("./routes/authRouter");
 
 const app = express();
 app.use(express.json());
+app.use(cookiePasrser());
 
 // Adding routers
 app.use("/", authRouter);

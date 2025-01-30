@@ -47,12 +47,17 @@ authRouter.post("/login", async (req, res, next) => {
             const jwtToken = await jwt.sign({ id: exitsingUser?.id, emailId: exitsingUser.emailId }, privateKey, {
                 expiresIn: '15m'
             });
-            res.cookie("token", jwtToken);
+            res.cookie("token", jwtToken, {
+                httpOnly: true,  // Prevents client-side JavaScript access
+                secure: true,    // Ensures cookie is sent over HTTPS
+                sameSite: 'Strict', // Protects against CSRF attacks
+                maxAge: 15 * 60 * 1000 // 15 minutes in milliseconds);
+            });
+            return res.status(200).json({
+                message: "User Login Successfull",
+                data: exitsingUser
+            });
         }
-        return res.status(200).json({
-            message: "User Login Successfull",
-            data: exitsingUser
-        });
     } catch (e) {
         return res.status(401).json({
             message: "Credentails are not valid" + e,
@@ -62,7 +67,7 @@ authRouter.post("/login", async (req, res, next) => {
 
 authRouter.post("/logout", async (req, res, next) => {
     try {
-        res.cookie("token", null);
+        res.cookie("token", "", { expires: new Date(0), httpOnly: true });
         return res.status(200).json({
             message: "User Logout Successfull!",
         });

@@ -1,9 +1,10 @@
 const express = require("express");
 const User = require("../models/UserModel");
 const userRouter = express.Router();
+const authMiddleware = require("../middleware/authMiddleware")
 
 // To get all the Users
-userRouter.get("/user", async (req, res, next) => {
+userRouter.get("/user", authMiddleware, async (req, res, next) => {
     try {
         const availableUsers = await User.findAll({});
         res.status(200).json({
