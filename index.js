@@ -1,6 +1,6 @@
 const http = require("http");
-const PORT = 7777;
-
+require("dotenv").config();
+const PORT = process.env.PORT;
 
 const app = http.createServer((req, res) => {
     res.end("Hello from server");
