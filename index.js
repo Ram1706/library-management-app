@@ -19,7 +19,7 @@ app.listen(PORT, async () => {
     try {
         await database.authenticate();
         console.log('DB Connection has been established successfully.');
-        console.log("Applicaation is running in port ", PORT);
+        console.log("Application is running in port ", PORT);
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
@@ -29,7 +29,6 @@ app.listen(PORT, async () => {
 // To Handle the Errors
 app.use("/", (err, req, res, next) => {
     if (err) {
-        console.log("Something went wrong!", err);
         res.status(500).json({
             message: "Something went wrong!"
         });
