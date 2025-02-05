@@ -1,6 +1,7 @@
 const sequelize = require("sequelize");
 const database = require("../config/database");
 
+
 const Users = database.define('Users', {
     id: {
         type: sequelize.UUID,
@@ -38,7 +39,7 @@ const Users = database.define('Users', {
         allowNull: true
     }
 }, {
-    tableName: 'users',
+    tableName: 'Users',
     timestamps: true
 });
 
