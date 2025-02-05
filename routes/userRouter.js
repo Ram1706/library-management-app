@@ -34,4 +34,27 @@ userRouter.get("/profile", authMiddleware, async (req, res, next) => {
     }
 });
 
+//  To updates the User 
+userRouter.patch("/profile", authMiddleware, async (req, res, next) => {
+    try {
+        const loggedInUser = req?.user || {};
+        const newData = req?.body || {};
+        const [updatedRows] = await User.update(newData, { where: { id: loggedInUser?.id } });
+        if (updatedRows > 0) {
+            res.status(200).json({
+                message: "User Profile Detail updated Successfully",
+                data: newData
+            });
+        } else {
+            res.status(500).json({
+                message: "User Profile Detail not updated Successfully" + e,
+            });
+        }
+    } catch (e) {
+        res.status(500).json({
+            message: "User Profile Detail not updated Successfully" + e,
+        });
+    }
+});
+
 module.exports = userRouter;
