@@ -18,7 +18,7 @@ const Users = database.define('Users', {
         allowNull: false
     },
     address: {
-        type: Sequelize.STRING,
+        type: sequelize.STRING,
         allowNull: true,
         defaultValue: "Coimbatore"
     },
