@@ -12,6 +12,7 @@ const productsRouter = require("./routes/productsRouter");
 // Importing Modeles
 const User = require("./models/UserModel");
 const Product = require("./models/Products");
+const PurchaseOrder = require("./models/PurchaseOrder");
 
 
 const app = express();
@@ -32,13 +33,19 @@ app.use("/test", (req, res, next) => {
 User.hasMany(Product, { foreignKey: "userId", onDelete: "CASCADE" });
 Product.belongsTo(User, { foreignKey: "userId" });
 
+User.hasMany(PurchaseOrder, { foreignKey: "userId" });
+PurchaseOrder.belongsTo(User, { foreignKey: "userId" });
+
+Product.hasMany(PurchaseOrder, { foreignKey: "productId" });
+PurchaseOrder.belongsTo(Product, { foreignKey: "productId" });
+
 app.listen(PORT, async () => {
     try {
         await database.authenticate();
         console.log('DB Connection has been established successfully.');
 
-        // await database.sync({ force: true }); // force: true drops existing tables & recreates them
-        // console.log("Database synced!");
+        await database.sync({}); // force: true drops existing tables & recreates them
+        console.log("Database synced!");
 
         console.log("Application is running in port ", PORT);
     } catch (error) {

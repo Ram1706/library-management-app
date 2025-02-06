@@ -34,13 +34,13 @@ authRouter.post("/login", async (req, res, next) => {
         const exitsingUser = await User.findOne({ where: { emailId: emailId } });
         if (!exitsingUser) {
             return res.status(401).json({
-                message: "Credentails are not valid" + e,
+                message: "Credentails are not valid",
             });
         }
         const isValidPassword = await bcryptjs.compare(userEnteredPassowrd, exitsingUser?.password);
         if (!isValidPassword) {
             return res.status(401).json({
-                message: "Credentails are not valid" + e,
+                message: "Credentails are not valid",
             });
         } else {
             const privateKey = process.env.PRIVATE_KEY;
